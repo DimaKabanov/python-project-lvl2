@@ -1,4 +1,6 @@
-import json
+from pathlib import Path
+
+from gendiff.parser import get_parser
 
 
 def plain_format(before, after, keys):
@@ -19,10 +21,15 @@ def plain_format(before, after, keys):
 
 
 def generate_diff(path_to_file_before, path_to_file_after):
-    data_file_before = json.load(open(path_to_file_before))
-    data_file_after = json.load(open(path_to_file_after))
+    suffix_path_before = Path(path_to_file_before).suffix
+    suffix_path_after = Path(path_to_file_after).suffix
 
-    keys = sorted(list(set(data_file_before) | set(data_file_after)))
-    diff = plain_format(data_file_before, data_file_after, keys)
+    parse_file = get_parser(suffix_path_before, suffix_path_after)
+
+    parsed_file_before = parse_file(open(path_to_file_before))
+    parsed_file_after = parse_file(open(path_to_file_after))
+
+    keys = sorted(list(set(parsed_file_before) | set(parsed_file_after)))
+    diff = plain_format(parsed_file_before, parsed_file_after, keys)
 
     return diff

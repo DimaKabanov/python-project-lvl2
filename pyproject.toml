@@ -4,7 +4,9 @@ version = "0.1.0"
 description = "Compares two configuration files and shows a difference"
 readme = "README.md"
 requires-python = ">=3.13"
-dependencies = []
+dependencies = [
+    "pyyaml>=6.0.2",
+]
 
 [project.scripts]
 gendiff = "gendiff.scripts.gendiff:main"
