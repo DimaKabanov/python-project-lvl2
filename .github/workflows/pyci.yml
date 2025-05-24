@@ -21,6 +21,9 @@ jobs:
         run: |
           make lint
           make test
+      - name: Run test coverage
+        run: |
+          make test-coverage
       - name: SonarQubeScan
         uses: SonarSource/sonarqube-scan-action@v5
         env:
@@ -29,3 +32,4 @@ jobs:
           args: >
             -Dsonar.projectKey=DimaKabanov_python-project-lvl2
             -Dsonar.organization=dimakabanov
+            -Dsonar.python.coverage.reportPaths=coverage.xml
