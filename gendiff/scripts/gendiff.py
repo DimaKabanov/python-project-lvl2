@@ -13,7 +13,7 @@ def main():
         type=str,
         metavar='FORMAT',
         default='stylish',
-        choices=['stylish'],
+        choices=['stylish', 'plain'],
         help='''
             set format of output
             (default: %(default)s),
