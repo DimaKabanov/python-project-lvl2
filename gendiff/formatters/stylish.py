@@ -9,20 +9,23 @@ def get_indent(depth, sign=' '):
     return f'{spaces[:-2]}{sign}{spaces[-1]}'
 
 
-def value_to_string(node, depth):
-    match node:
+def value_to_str(value, depth):
+    match value:
         case None:
             return 'null'
         case bool():
-            return str(node).lower()
+            return str(value).lower()
         case dict():
+            indent = get_indent(depth + 1)
             formatted_items = map(
-                lambda key: f'{get_indent(depth + 1)}{key}: {value_to_string(node[key], depth + 1)}',
-                node.keys()
+                lambda key: (
+                    f'{indent}{key}: {value_to_str(value[key], depth + 1)}'
+                ),
+                value.keys()
             )
             return f"{{\n{'\n'.join(formatted_items)}\n{get_indent(depth)}}}"
         case _:
-            return str(node)
+            return str(value)
 
 
 def format_stylish(ast, current_depth=0):
@@ -33,28 +36,29 @@ def format_stylish(ast, current_depth=0):
         match node['type']:
             case 'added':
                 indent = get_indent(depth, '+')
-                value = value_to_string(node['new_value'], depth)
+                value = value_to_str(node['new_value'], depth)
                 return f"{indent}{key}: {value}"
             case 'deleted':
                 indent = get_indent(depth, '-')
-                value = value_to_string(node['old_value'], depth)
+                value = value_to_str(node['old_value'], depth)
                 return f"{indent}{key}: {value}"
             case 'changed':
                 first_indent = get_indent(depth, '-')
                 second_indent = get_indent(depth, '+')
-                old_value = value_to_string(node['old_value'], depth)
-                new_value = value_to_string(node['new_value'], depth)
+                old_value = value_to_str(node['old_value'], depth)
+                new_value = value_to_str(node['new_value'], depth)
                 return [
                     f"{first_indent}{key}: {old_value}",
                     f"{second_indent}{key}: {new_value}"
                 ]
             case 'unchanged':
                 indent = get_indent(depth)
-                value = value_to_string(node['old_value'], depth)
+                value = value_to_str(node['old_value'], depth)
                 return f"{indent}{key}: {value}"
             case 'complex':
                 indent = get_indent(depth)
-                return f"{indent}{key}: {format_stylish(node['children'], depth)}"
+                children = node['children']
+                return f"{indent}{key}: {format_stylish(children, depth)}"
 
     formatted_nodes = flatten(map(format_node_by_type, ast))
     return f"{{\n{'\n'.join(formatted_nodes)}\n{get_indent(current_depth)}}}"
