@@ -29,3 +29,23 @@ def test_flat_yml_diff():
     expected = read_file('output.txt')
 
     assert actual == expected
+
+
+def test_nested_json_diff():
+    before_path = get_test_data_path('before-nested.json')
+    after_path = get_test_data_path('after-nested.json')
+
+    actual = generate_diff(before_path, after_path)
+    expected = read_file('output-nested.txt')
+
+    assert actual == expected
+
+
+def test_nested_yml_diff():
+    before_path = get_test_data_path('before-nested.yml')
+    after_path = get_test_data_path('after-nested.yml')
+
+    actual = generate_diff(before_path, after_path)
+    expected = read_file('output-nested.txt')
+
+    assert actual == expected
