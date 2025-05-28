@@ -23,8 +23,7 @@ properties = [
         'extend': lambda data: {
             'children': data['make_ast'](
                 data['value_before'],
-                data['value_after'],
-                data['depth'] + 1
+                data['value_after']
             )
         }
     },
@@ -44,7 +43,7 @@ properties = [
 ]
 
 
-def make_ast(data_before, data_after, depth=1):
+def make_ast(data_before, data_after):
     keys = sorted(list(set(data_before) | set(data_after)))
 
     def find_property(key):
@@ -55,14 +54,12 @@ def make_ast(data_before, data_after, depth=1):
             'value_after': data_after.get(key),
             'key': key,
             'make_ast': make_ast,
-            'depth': depth,
         }
 
         return next(
             {
                 'type': prop['type'],
                 'key': key,
-                'depth': depth,
                 **prop['extend'](data)
             }
             for prop in properties
