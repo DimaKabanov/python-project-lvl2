@@ -29,7 +29,7 @@ def format_value(value, depth):
             )
             return wrap_items(formatted_items, depth)
         case _:
-            return str(value)
+            return value
 
 
 def format_stylish(ast):
