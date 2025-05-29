@@ -1,0 +1,116 @@
+[
+  {
+    "type": "complex",
+    "key": "common",
+    "children": [
+      {
+        "type": "added",
+        "key": "follow",
+        "new_value": false
+      },
+      {
+        "type": "unchanged",
+        "key": "setting1",
+        "old_value": "Value 1"
+      },
+      {
+        "type": "deleted",
+        "key": "setting2",
+        "old_value": 200
+      },
+      {
+        "type": "changed",
+        "key": "setting3",
+        "old_value": true,
+        "new_value": null
+      },
+      {
+        "type": "added",
+        "key": "setting4",
+        "new_value": "blah blah"
+      },
+      {
+        "type": "added",
+        "key": "setting5",
+        "new_value": {
+          "key5": "value5"
+        }
+      },
+      {
+        "type": "complex",
+        "key": "setting6",
+        "children": [
+          {
+            "type": "complex",
+            "key": "doge",
+            "children": [
+              {
+                "type": "changed",
+                "key": "wow",
+                "old_value": "",
+                "new_value": "so much"
+              }
+            ]
+          },
+          {
+            "type": "unchanged",
+            "key": "key",
+            "old_value": "value"
+          },
+          {
+            "type": "added",
+            "key": "ops",
+            "new_value": "vops"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "type": "complex",
+    "key": "group1",
+    "children": [
+      {
+        "type": "changed",
+        "key": "baz",
+        "old_value": "bas",
+        "new_value": "bars"
+      },
+      {
+        "type": "unchanged",
+        "key": "foo",
+        "old_value": "bar"
+      },
+      {
+        "type": "changed",
+        "key": "nest",
+        "old_value": {
+          "key": "value"
+        },
+        "new_value": "str"
+      }
+    ]
+  },
+  {
+    "type": "deleted",
+    "key": "group2",
+    "old_value": {
+      "abc": 12345,
+      "deep": {
+        "id": 45
+      }
+    }
+  },
+  {
+    "type": "added",
+    "key": "group3",
+    "new_value": {
+      "deep": {
+        "id": {
+          "number": 45
+        }
+      },
+      "fee": 100500
+    }
+  }
+]
